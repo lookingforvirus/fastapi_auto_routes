@@ -1,5 +1,5 @@
 # ⚡ FastAPI Auto Routes  
-> Dynamic CRUD & Auth Generator for SQLModel — minimal setup, maximum automation.
+> Dynamic CRUD & Auth Generator for SQLModel — single-file plug-and-play.
 
 [![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=flat&logo=fastapi)](https://fastapi.tiangolo.com/)
 [![Python](https://img.shields.io/badge/Python-3.11%2B-blue?logo=python&logoColor=white)](https://www.python.org/)
@@ -11,8 +11,8 @@
 
 ## 🧠 Overview
 
-**FastAPI Auto Routes** is a **plug-and-play dynamic router generator** that eliminates repetitive CRUD boilerplate.  
-It automatically creates full-featured **CRUD endpoints** with:
+**FastAPI Auto Routes** is a **single-file dynamic router generator** (`auto_routes.py`) that eliminates repetitive CRUD boilerplate.  
+Simply download or import the file, configure your **SQLModel engine**, and you’re ready to generate full-featured **CRUD endpoints** with:
 
 - ✅ Authentication via Bearer tokens  
 - ⚡ Smart caching (with TTL)  
@@ -20,7 +20,7 @@ It automatically creates full-featured **CRUD endpoints** with:
 - 🧩 Bulk operations  
 - 🪪 Auto-generated `/login` and `/logout` routes  
 
-All built on top of **FastAPI + SQLModel + diskcache**.
+Built on **FastAPI + SQLModel + diskcache**, ready to plug into your project.
 
 ---
 
@@ -42,6 +42,8 @@ or using **Poetry**:
 poetry add fastapi sqlmodel diskcache
 ```
 
+Simply copy or import `auto_routes.py` into your project.
+
 ---
 
 ## ⚙️ Example Usage
@@ -49,7 +51,7 @@ poetry add fastapi sqlmodel diskcache
 ```python
 from fastapi import FastAPI
 from sqlmodel import SQLModel, Field
-from app.db.config import engine
+from app.db.config import engine  # Configure your SQLModel engine
 from app.utils.auto_routes import crud_router
 
 class User(SQLModel, table=True):
@@ -93,27 +95,6 @@ app.include_router(
 
 ---
 
-## 🪪 Authentication Example
-
-```bash
-# Login
-curl -X POST http://localhost:8000/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"email": "test@example.com", "password": "123456"}'
-
-# Response
-{
-  "token": "4b32f19a2e7e89a50cda22e03bdf3e41",
-  "user": { "email": "test@example.com" }
-}
-
-# Authenticated request
-curl -X GET http://localhost:8000/users/ \
-  -H "Authorization: Bearer 4b32f19a2e7e89a50cda22e03bdf3e41"
-```
-
----
-
 ## ⚡ Parameters
 
 | Parameter        | Type             | Default       | Description                          |
@@ -130,8 +111,8 @@ curl -X GET http://localhost:8000/users/ \
 
 ## 🧠 How It Works
 
-1. **CRUD Generation**
-   `crud_router()` dynamically builds all routes (`GET`, `POST`, `PATCH`, `DELETE`) for the given model.
+1. **Single-file CRUD & Auth Generation**
+   `crud_router()` dynamically builds all routes (`GET`, `POST`, `PATCH`, `DELETE`) for the given model from **one file**.
 
 2. **Authentication Layer**
 
@@ -157,7 +138,7 @@ app/
 ├── db/
 │   └── config.py          # Database engine setup
 ├── utils/
-│   └── auto_routes.py     # Core router generator
+│   └── auto_routes.py     # Single-file router generator
 ├── main.py                # FastAPI entrypoint
 ```
 
@@ -177,17 +158,8 @@ app/
 
 > **Automation without compromise.**
 
-Instead of repeating CRUD definitions across every model, this tool dynamically builds routers that are **secure**, **scalable**, and **production-ready**.
+Instead of repeating CRUD definitions across every model, this **single file** dynamically builds routers that are **secure**, **scalable**, and **production-ready**.
 Your backend becomes **data-driven**, not boilerplate-driven.
-
----
-
-## 🧩 Roadmap
-
-* [ ] Automatic route registration for all SQLModel models in a module
-* [ ] Role-based access control (RBAC)
-* [ ] Custom validation hooks
-* [ ] Async database sessions
 
 ---
 
@@ -206,6 +178,4 @@ Free for personal and commercial use.
 
 ---
 
-### ⭐ If this project saves you time, give it a star — it’s the currency of open source.
-
-# fastapi_auto_routes
+### ⭐ If this file saves you time, give it a star — it’s the currency of open source.
